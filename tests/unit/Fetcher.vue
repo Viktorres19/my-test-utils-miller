@@ -4,11 +4,11 @@
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
   mounted() {
-    axios.get('/')
+    // axios.get('/')
   }
 }
 </script>
