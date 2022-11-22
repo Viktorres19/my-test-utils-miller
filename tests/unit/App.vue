@@ -1,30 +1,23 @@
 <template>
-  <button @click="increment" />
-  <div v-if="count % 2 === 0">
-    Count: {{ count }}. Count is even.
-  </div>
-
-  <div v-if="count % 2 !== 0">
-    Count: {{ count }}. Count is odd.
-  </div>
-  <fetcher />
+  <button @click="handleClick" />
 </template>
 
 <script>
-import Fetcher from './Fetcher'
+import { ref } from 'vue'
 
 export default {
-  components: { Fetcher },
-  computed: {
-    count() {
-      return this.$store.state.count
+  setup(props, { emit }) {
+    const count = ref(0)
+
+    const handleClick = () => {
+      count.value += 1
+      emit('count', count.value)
     }
-  },
-  methods: {
-    increment() {
-      this.$store.commit('increment')
+
+    return {
+      handleClick
     }
-  },
+  }
 }
 </script>
 
