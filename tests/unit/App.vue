@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Fetcher from './Fetcher.vue'
+import Fetcher from './Fetcher'
 
 export default {
   components: { Fetcher },
