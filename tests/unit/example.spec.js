@@ -23,18 +23,20 @@ function factory() {
   return mount(App, {
     global: {
       plugins: [store],
-      mocks: {
-        $route: {
-          params: {
-            postId: '1'
-          }
-        }
-      }
     }
   })
 }
 
+let mockGet = jest.fn()
+
+jest.mock('axios', () => ({
+  get: () => mockGet()
+}))
+
 describe('App', () => {
+  beforeEach(() => {
+    mockGet = jest.fn()
+  })
   it('render count when even', async () => {
     const wrapper = factory()
     await wrapper.find('button').trigger('click')
@@ -48,8 +50,8 @@ describe('App', () => {
     expect(wrapper.html()).toContain('Count: 1. Count is odd')
   })
 
-  it('render count when odd', async () => {
+  it('makes an api call', async () => {
     const wrapper = factory()
-    expect(wrapper.html()).toContain('PostID: 1')
+    expect(mockGet).toHaveBeenCalledTimes(1)
   })
 })
